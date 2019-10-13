@@ -5,7 +5,9 @@ using namespace std::chrono;
 typedef long long int ll;
 #define mp make_pair
 #define pb push_back
- 
+#define all(v) v.begin(),v.end()
+#define rall(v) v.rbegin(),v.rend()
+
 vector<int> sieve(ll n){
    vector<int> prime(n+1,0);
    vector<int> primes(n+1,0);
@@ -65,15 +67,76 @@ int main(){
     freopen("out.txt", "wt", stdout);
     #endif
     //int t; cin >> t; while(t--){}
-    int n;
-    while(cin >> n,n){
-        int ans=log2(n);
-        cout << ans << "\n";
+    ll n,m;
+    cin >> n >> m;
+    int a[n][m];
+    int b[n][m];
+    vector<int> r,c;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin >> b[i][j];
+            a[i][j]=1;
+            if(b[i][j]==0){
+                r.pb(i);
+                c.pb(j);
+            }
+        }
     }
-    
+    //cout << r << c;
+    for(int i=0;i<r.size();i++){
+        for(int j=0;j<m;j++){
+            a[r[i]][j]=0;
+        }
+    }
+    for(int i=0;i<c.size();i++){
+        for(int j=0;j<n;j++){
+            a[j][c[i]]=0;
+        }
+    }
+    vector<int> rows,cols;
+    for(int i=0;i<n;i++){
+        int t=0;
+        for(int j=0;j<m;j++){
+            t|=a[i][j];
+        }
+        rows.pb(t);
+    }
+    for(int i=0;i<m;i++){
+        int t=0;
+        for(int j=0;j<n;j++){
+            t|= a[j][i];
+        }
+        cols.pb(t);
+    }
+    //cout << "\nrows cols \n";
+    //cout<<rows << cols;
+    int flag=0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(b[i][j] != (rows[i]|cols[j])){
+                flag=1;
+                break;
+            }
+        }
+        if(flag==1){
+            break;
+        }
+    }
+    if(flag==1){
+        cout << "NO\n";
+    }
+    else{
+        cout << "YES\n";
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                cout << a[i][j] << " ";
+            }
+            cout << "\n";
+        }
+    }
     #ifndef ONLINE_JUDGE
     auto stop = high_resolution_clock::now(); 
-    auto duration = duration_cast<microseconds>(stop - start); 
+    auto duration = duration_cast<milliseconds>(stop - start); 
     cout << "Time Elapsed : " << duration.count() << " ";
     #endif
  

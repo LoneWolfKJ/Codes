@@ -64,16 +64,33 @@ int main(){
     freopen("in.txt", "rt", stdin);
     freopen("out.txt", "wt", stdout);
     #endif
-    //int t; cin >> t; while(t--){}
-    int n;
-    while(cin >> n,n){
-        int ans=log2(n);
-        cout << ans << "\n";
+    int t; cin >> t; while(t--){
+        int n;
+        cin >> n;
+        int a[n][n];
+        memset(a,0,sizeof(a));
+        for(int i=0;i<n;i++){
+            for(int j=1;j<=(n/2);j++){
+                a[i][(i+j)%n]=1;
+            }
+        }
+        if(n%2==0){
+            cout << "NO\n";
+        }
+        else{
+            cout << "YES\n";
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    cout << a[i][j];
+                }
+                cout << "\n";
+            }
+        }
     }
     
     #ifndef ONLINE_JUDGE
     auto stop = high_resolution_clock::now(); 
-    auto duration = duration_cast<microseconds>(stop - start); 
+    auto duration = duration_cast<milliseconds>(stop - start); 
     cout << "Time Elapsed : " << duration.count() << " ";
     #endif
  

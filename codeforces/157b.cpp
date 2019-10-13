@@ -65,15 +65,24 @@ int main(){
     freopen("out.txt", "wt", stdout);
     #endif
     //int t; cin >> t; while(t--){}
-    int n;
-    while(cin >> n,n){
-        int ans=log2(n);
-        cout << ans << "\n";
-    }
-    
+    int a[3][3], b[3]={0}, s = 0;
+	int i, j;
+	for (i = 0; i < 3; ++i)
+		for (b[i] = 0, j = 0; j < 3; ++j) {
+			cin >> a[i][j];
+			b[i] += a[i][j];
+			s += a[i][j];
+		}
+	s >>= 1;
+	for (i = 0; i < 3; ++i) {
+		a[i][i] = s - b[i];
+		for (j = 0; j < 3; ++j) cout <<  a[i][j] << " ";
+        cout << "\n";
+	}
+	return 0;
     #ifndef ONLINE_JUDGE
     auto stop = high_resolution_clock::now(); 
-    auto duration = duration_cast<microseconds>(stop - start); 
+    auto duration = duration_cast<milliseconds>(stop - start); 
     cout << "Time Elapsed : " << duration.count() << " ";
     #endif
  

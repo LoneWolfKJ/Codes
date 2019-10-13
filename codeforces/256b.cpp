@@ -65,15 +65,59 @@ int main(){
     freopen("out.txt", "wt", stdout);
     #endif
     //int t; cin >> t; while(t--){}
-    int n;
-    while(cin >> n,n){
-        int ans=log2(n);
-        cout << ans << "\n";
+    string a,b;
+    cin >> a >> b;
+    int n1=a.length();
+    int n2=b.length();
+    int flag=0;
+    for(int i=0,j=0;i<n1;i++){
+        if(j<n2){
+            if(b[j]==a[i]){
+                j++;
+            }
+        }
+        if(j==n2){
+            flag=1;
+            break;
+        }
     }
-    
+    if(flag==1){
+        cout << "automaton\n";
+    }
+    else{
+        int hm[35]={0};
+        for(int i=0;i<n1;i++){
+            hm[a[i]-'a']++;
+        }
+        for(int i=0;i<n2;i++){
+            hm[b[i]-'a']--;
+        }
+        int neg=0;
+        for(int i=0;i<26;i++){
+            if(hm[i]<0){
+                neg=1;
+            }
+            if(hm[i]!=0){
+                flag=1;
+            }
+        }
+        if(flag==0){
+            cout << "array\n";
+        }
+        else{
+            if(neg==1){
+                cout << "need tree\n";
+            }
+            else{
+                cout << "both\n";
+            }
+        }
+        
+    }
+
     #ifndef ONLINE_JUDGE
     auto stop = high_resolution_clock::now(); 
-    auto duration = duration_cast<microseconds>(stop - start); 
+    auto duration = duration_cast<milliseconds>(stop - start); 
     cout << "Time Elapsed : " << duration.count() << " ";
     #endif
  

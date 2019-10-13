@@ -3,8 +3,12 @@ using namespace std;
 using namespace std::chrono; 
  
 typedef long long int ll;
+#define endl "\n" 
 #define mp make_pair
 #define pb push_back
+#define all(v) v.begin(),v.end()
+#define rall(v) v.rbegin(),v.rend()
+#define MOD 1000000007
  
 vector<int> sieve(ll n){
    vector<int> prime(n+1,0);
@@ -66,14 +70,27 @@ int main(){
     #endif
     //int t; cin >> t; while(t--){}
     int n;
-    while(cin >> n,n){
-        int ans=log2(n);
-        cout << ans << "\n";
+    cin >> n;
+    vector<int> x,y;
+    map<int,int> hm;
+    for(int i=0;i<n;i++){
+        int t1,t2;
+        cin >> t1 >> t2;
+        x.pb(t1);
+        y.pb(t2); 
+        hm[t1]++;
     }
-    
+    vector<int>home(n,(n-1));
+    vector<int>away(n,0);
+    for(int i=0;i<n;i++){
+        home[i]+= hm[y[i]];
+        away[i]=n+n-1-1-home[i];
+        cout << home[i] << " " << away[i] << "\n";
+    }
+
     #ifndef ONLINE_JUDGE
     auto stop = high_resolution_clock::now(); 
-    auto duration = duration_cast<microseconds>(stop - start); 
+    auto duration = duration_cast<milliseconds>(stop - start); 
     cout << "Time Elapsed : " << duration.count() << " ";
     #endif
  

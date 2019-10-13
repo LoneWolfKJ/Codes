@@ -53,7 +53,26 @@ while (n > 0) {
     } 
     return p % mod;
 }
- 
+
+const int Maxn = 500005;
+vector <int> high[Maxn];
+int ans,k;
+
+int dfs(int u, int v=0){
+    int op=0;
+    for(int i=0;i<high[u].size();i++){
+        if(high[u][i]==v) continue;
+        else{
+            op=max(op,dfs(high[u][i], u));
+        }
+    }
+    if(op<k){
+        op++;
+        ans++;
+    }
+    return op;
+}
+
 int main(){
  
     ios_base::sync_with_stdio(false);
@@ -64,16 +83,25 @@ int main(){
     freopen("in.txt", "rt", stdin);
     freopen("out.txt", "wt", stdout);
     #endif
-    //int t; cin >> t; while(t--){}
-    int n;
-    while(cin >> n,n){
-        int ans=log2(n);
+    int t; cin >> t; while(t--){
+        int n;
+        cin >> n >> k;
+        for (int i = 1; i <= n; i++)
+            high[i].clear();
+        for(int i=0;i<n-1;i++){
+            int a,b;
+            cin >> a >> b;
+            high[a].pb(b);
+            high[b].pb(a);
+        }
+        ans=0;
+        dfs(1);
         cout << ans << "\n";
     }
     
     #ifndef ONLINE_JUDGE
     auto stop = high_resolution_clock::now(); 
-    auto duration = duration_cast<microseconds>(stop - start); 
+    auto duration = duration_cast<milliseconds>(stop - start); 
     cout << "Time Elapsed : " << duration.count() << " ";
     #endif
  
