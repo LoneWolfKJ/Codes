@@ -43,7 +43,7 @@ ostream& operator<<(ostream& os, const set<T>& v)
 for (auto it : v) {
 os << it; 
 if (it != *v.rbegin()) 
-os << " ";
+os << " " ;
 }
 os << "\n"; 
 return os; 
@@ -96,27 +96,13 @@ int main(){
     freopen("out.txt", "wt", stdout);
     #endif
     //int t; cin >> t; while(t--){}
-    map<char,char>ma;
-    ll n,m;
-    cin >> n >> m;
-    string s;
-    cin >> s;
-    for(char a='a';a<='z';a++){
-        ma[a]=a;
+    ll n,x,y;
+    cin >> n >> x >> y;
+    if(max(n-x,n-y)<max(x-1,y-1)){
+        cout << "Black\n";
     }
-    for(ll i=0;i<m;i++){
-        char a1,a2;
-        cin >> a1 >> a2;
-        //cout << a1 << " a1 " << a2 << " a2 \n";
-        for(char a='a';a<='z';a++){
-            if(ma[a]==a1) {
-                ma[a]=a2;
-            }
-            else if(ma[a]==a2)ma[a]=a1;
-        }
-    }
-    for(ll i=0;i<n;i++){
-        cout << ma[s[i]];
+    else{
+        cout << "White\n";
     }
     #ifndef ONLINE_JUDGE
     auto stop = high_resolution_clock::now(); 
