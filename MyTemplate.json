@@ -60,7 +60,7 @@
     			"for (auto it : v) {",
         		"os << it; ",
         		"if (it != *v.rbegin()) ",
-            			"os << \" \" ",
+            			"os << \" \"; ",
     			"}",
     			"os << \"\\n\"; ",
     			"return os; ",
